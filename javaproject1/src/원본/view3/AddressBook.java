@@ -1,11 +1,12 @@
-package address.원본.view3;
+package 원본.view3;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Vector;
-
 import javax.swing.*;
 import javax.swing.table.*;
 
@@ -99,8 +100,11 @@ public class AddressBook extends JFrame {
         table = new JTable(myTableModel);
         JTableHeader jth = new JTableHeader();
         jScrollPane1.getViewport().setBackground(Color.black);
-
-		labelTimer = new JLabel("현재 시간");
+        
+        
+        DateTimeFormatter Formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+        String time = LocalTime.now().format(Formatter);
+		labelTimer = new JLabel("현재 시간" + time);
 		labelTimer.setFont(font);
 		panelTimer = new JPanel();
 		font= new Font("굴림",0, 12);
@@ -255,6 +259,7 @@ public class AddressBook extends JFrame {
 		btnUpdate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	System.out.println("수정 아이콘");
+            	updateActionPerformed(); 
             }
         });
         toolbar.add(btnUpdate);
@@ -320,12 +325,45 @@ public class AddressBook extends JFrame {
 			JOptionPane.showMessageDialog(this, "DB 연결에 실패했습니다.\n" + e,"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	// 조회 메뉴나 조회 아이콘 선택시 작업을 정의합니다.
+	
 	private void detailActionPerformed() {
-		System.out.println("상세조회 구현");		
-	}
+		System.out.println("상세조회 구현");
+		int index[] = table.getSelectedRows();
+		AddressVO vo = new AddressVO();
+		// 선택형 인덱스이며 getSelectedRow는 개별적으로 한개의 데이터를 선택할 수 있는 메소드이며 
+		// 다중 선택을 원할시 getSelectedRows을 사용하면된다.
+		if(index.length == 0) {
+		// 인덱스의(변수이름.length) 값을 자유롭게 변경이 가능하도록 설정해주는 값	
+		   JOptionPane.showMessageDialog(this, "조회할 데이터를 선택하시오", "Error", JOptionPane.ERROR_MESSAGE);
+		// JOptionPane.showMessageDialog 알림창을 띄울수 있는 함수이다.
+		   return;
+		} else if(index.length > 1) {
+			JOptionPane.showMessageDialog(this, "데이터를 한건만 선택하시오", "Error", JOptionPane.ERROR_MESSAGE);
+			   return;
+		} else { 
+			try { 
+				Integer id = Integer.parseInt	
+			   // DB에서 자료형이 정수형이지만 null 값이 필요한 경우 VO에서 Integer를 사용할 수 있다.	
+			   // parseInt()의 기능은 String타입의 숫자를 int타입으로 변환해주는 기능을 해준				
+			(myTableModel.getValueAt(index[0],0).toString());
+			
+				vo.setCommand("select");
+				vo.setId(id);
+				AddressCtrl ctrl = new AddressCtrl();
+				mDialog.set("상세조회", false, ctrl.send(vo), abook);
+				// 데이터 박스에 해당값을 입력 시키고 메세지를 송출시켜주는 메서드
+				mDialog.setVisible(true);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "데이터를 를 가져오는중 문제가 발생했습니다.,"+e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		
+				
+	    }
+   }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	// 입력 메뉴나 입력 아이콘 선택시 작업을 정의합니다.
 	private void addActionPerformed(ActionEvent evt) {
 		System.out.println("입력하기");	
@@ -337,6 +375,8 @@ public class AddressBook extends JFrame {
 	public void updateActionPerformed() {
 		System.out.println("수정하기");
 		int index[] = table.getSelectedRows();
+		// 선택형 인덱스이며 getSelectedRow는 개별적으로 한개의 데이터를 선택할 수 있는 메소드이며 
+	    // 다중 선택을 원할시 getSelectedRows을 사용하면된다.
 		AddressVO vo = new AddressVO();
 		if(index.length == 0) {
 			JOptionPane.showMessageDialog(this, "수정할 데이터를 선택하세요...", "Error", JOptionPane.ERROR_MESSAGE);
@@ -346,8 +386,6 @@ public class AddressBook extends JFrame {
 			return;
 		} else {
 			try {
-				// 테이블에서 선택된 컬럼의 id를 읽어옵니다.
-//				Integer id= (Integer)myTableModel.getValueAt(index[0], 0);
 				Integer id = Integer.parseInt
 				(myTableModel.getValueAt(index[0], 0).toString());				
 				AddressVO newVo = null;
@@ -365,12 +403,30 @@ public class AddressBook extends JFrame {
 			}
 		}		
 	}
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------------//
 	// 삭제 메뉴나 삭제 아이콘 선택시 작업을 정의합니다.
 	private void deleteActionPerformed() {
+		int index[] = table.getSelectedRows();
+		if(index.length == 0) {
+			JOptionPane.showMessageDialog(this, "삭제할 데이터를 선택하세요...", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		} else { 
+			try { 
+				 Integer id = Integer.parseInt(myTableModel.getValueAt(index[0], 0).toString());
+				 System.out.println("사용자가 선택한 id : "+id);
+			     AddressVO vo = new AddressVO(); 
+			     AddressCtrl ctrl = new AddressCtrl();
+			     vo.setCommand("delete");
+			     vo.setId(id);
+			     ctrl.send(vo);
+			     refreshData();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "데이터를 가져오는 중 문제가 발생했습니다."+e.toString(), "Error",JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		System.out.println("삭제하기");
 	}
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------//
 	// 종료 메뉴 선택시 작업을 정의합니다.
 	private void exitActionPerformed(ActionEvent evt) {
 		System.exit(0);
@@ -389,24 +445,26 @@ public class AddressBook extends JFrame {
 		vo.setCommand("selectall");
 		ctrl = new AddressCtrl(vo);	
 		// Controller에서 넘겨 받은 전체 데이터를 테이블에 셋팅합니다.
-		vos = ctrl.send();	
-		if(vos == null || vos.length == 0) {
-			vos = new AddressVO[2];	
-			AddressVO rvo = new AddressVO("이순신","서울시 마포구 공덕동","010-555-6677","1"
-					                     ,"고교동창","1990-05-28","Back-End개발자","2022-03-15",1);
-			vos[0] = rvo;
-			rvo = new AddressVO("강감찬","서울시 영등포구 당산동","010-777-6677","1"
-                    ,"대학동창","1992-01-28","Back-End개발자","2022-01-25",2);
-			vos[1] = rvo;
+		vos = ctrl.send();
+		
+		if(vos.length >= 0) {
 			for (int i = 0; i < vos.length; i++) {
+				AddressVO aVO = vos[i];
 				Vector<Object> oneRow = new Vector<>();
-				oneRow.addElement(vos[i].getId());
-				oneRow.addElement(vos[i].getName());
-				oneRow.addElement(vos[i].getAddress());
-				oneRow.addElement(vos[i].getTelephone());			
+				oneRow.addElement(aVO.getId());
+				oneRow.addElement(aVO.getName());
+				oneRow.addElement(aVO.getAddress());
+				oneRow.addElement(aVO.getTelephone());			
 				myTableModel.addRow(oneRow);
+				
+			}
+			while(myTableModel.getRowCount()> vos.length) {
+				
+				myTableModel.removeRow(0);
 			}
 		}
+		
+
 	}
 
 }

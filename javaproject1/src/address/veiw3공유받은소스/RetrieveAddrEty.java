@@ -3,13 +3,8 @@ package address.veiw3공유받은소스;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
 
-import address.veiw3공유받은소스.AddressVO;
-import address.veiw3공유받은소스.DBConnectionMgr;
+import java.util.Vector;
 
 
 public class RetrieveAddrEty {

@@ -413,26 +413,23 @@ public class AddressBook extends JFrame {
 		if(index.length == 0) {
 			JOptionPane.showMessageDialog(this, "삭제할 데이터를 선택하세요...", "Error", JOptionPane.ERROR_MESSAGE);
 			return;
-		}else {
-			try {
-				Integer id = Integer.parseInt(myTableModel.getValueAt(index[0], 0).toString());
-				System.out.println("사용자가 선택한 id : "+id);
-				AddressVO vo = new AddressVO();	
-				vo.setCommand("delete");
-				vo.setId(id);
-				AddressCtrl ctrl = new AddressCtrl();
-				ctrl.send(vo);
-				refreshData();
-				
+		}else { 
+			try { 
+				 Integer id = Integer.parseInt(myTableModel.getValueAt(index[0], 0).toString());
+				 System.out.println("사용자가 선택한 id : "+id);
+			     AddressVO vo = new AddressVO(); 
+			     AddressCtrl ctrl = new AddressCtrl();
+			     vo.setCommand("delete");
+			     vo.setId(id);
+			     ctrl.send(vo);
+			     refreshData();
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "데이터를 가져오는 중 발생했습니다."+e.toString(),"Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "데이터를 가져오는 중 문제가 발생했습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-		
-		
-		
 		System.out.println("삭제하기");
 	}
+		
 
 	// 종료 메뉴 선택시 작업을 정의합니다.
 	private void exitActionPerformed(ActionEvent evt) {
@@ -455,13 +452,6 @@ public class AddressBook extends JFrame {
 		vos = ctrl.send();
 		
 		if(vos.length >= 0) {
-			/*vos = new AddressVO[2];	
-			AddressVO rvo = new AddressVO("이순신","서울시 마포구 공덕동","010-555-6677","1"
-					                     ,"고교동창","1990-05-28","Back-End개발자","2022-03-15",1);
-			vos[0] = rvo;
-			rvo = new AddressVO("강감찬","서울시 영등포구 당산동","010-777-6677","1"
-                    ,"대학동창","1992-01-28","Back-End개발자","2022-01-25",2);
-			vos[1] = rvo;*/
 			for (int i = 0; i < vos.length; i++) {
 				AddressVO aVO = vos[i];
 				Vector<Object> oneRow = new Vector<>();
