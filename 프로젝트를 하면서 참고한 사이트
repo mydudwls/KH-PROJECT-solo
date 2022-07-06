@@ -1,0 +1,30 @@
+프로젝트를 하면서 모르는게 너무 많다는 것을 다시한번 깨닫고 관련 개념을 인터넷으로 조회하면서 문제를 해결해 나갔다!!!. 
+관련 사이트 리스트 는 다음과 같다. 
+
+1. SQLException 을 안쓰고 Exception 으로 처리하려고 했던 이유. 
+https://davidpark20.tistory.com/36
+
+2. StringBuilder 
+https://onlyfor-me-blog.tistory.com/31
+
+3. DBConnectionMgr :  https://blog.naver.com/chomc21/10005794353
+
+4. PreparedStatement 개념 및 예제 : https://sas-study.tistory.com/160
+
+5. ResultSet : https://aricode.tistory.com/10
+
+6. getConnection : https://docs.microsoft.com/ko-kr/sql/connect/jdbc/reference/getconnection-method-java-lang-string-java-lang-string?view=sql-server-ver16
+
+7. if문 :  [https://blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=220947423870&redirect=Dlog&widgetTypeCall=true&directAccess=false](https://blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=220947423870&redirect=Dlog&widgetTypeCall=true&directAccess=false)
+
+8. add. addAll : https://gayoung78.tistory.com/60
+
+9. VO 클래스 : https://rsorry.tistory.com/191
+
+10. List map : https://lts0606.tistory.com/359
+
+11. vector : https://crazykim2.tistory.com/570
+
+12. 오라클 insert, update : https://offbyone.tistory.com/253 
+
+13. 오라클 insert, update, delete, select 사용법 정리 : https://wakestand.tistory.com/8
