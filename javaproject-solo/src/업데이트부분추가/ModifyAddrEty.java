@@ -7,13 +7,13 @@ public class ModifyAddrEty {
 	
 	/**********************************************************************************
 	 * UPDATE mkaddrtb
-	 * SET 		name = 
-	 * 			address = 
-	 * 			telephone =
-	 * 			gender = 
-	 * 			relationship = 
-	 * 			birthday =
-	 * 			comments =
+	 * SET 		name = ?
+	 * 			address = ?
+	 * 			telephone = ?
+	 * 			gender = ?
+	 * 			relationship = ? 
+	 * 			birthday = ?
+	 * 			comments = ? 
 	 * 			registedate = to_char(sysdate, 'YYYY/MM/DD')
 	 * 		WHERE id = ?
 	 * @param vo
