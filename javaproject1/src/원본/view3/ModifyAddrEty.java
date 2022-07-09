@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 
 import javax.swing.JOptionPane;
 
+import 업데이트.DBConnectionMgr;
+
 
 public class ModifyAddrEty {
 	
@@ -20,33 +22,29 @@ public class ModifyAddrEty {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE mkaddrtb                                                               ");
         sql.append("   SET name = ? , address = ?, telephone = ?, gender = ?, relationship = ?,   ");
-        sql.append("       birthday = ?, comments = ?, registedate = ?                           ");   
+        sql.append("       birthday = ?, comments = ?, registedate = to_cahr                           ");   
         sql.append(" WHERE id = ?                                                                 ");		
 		int result = 0;
-		int i = 1;
 		try {
-			con = dbMgr.getConnection();
-			pstmt = con.prepareStatement(sql.toString());
-				
-				pstmt.setString(i++, vo.getName());
-				pstmt.setString(i++, vo.getAddress());
-				pstmt.setString(i++, vo.getTelephone());
-				pstmt.setString(i++, vo.getGender());
-				pstmt.setString(i++, vo.getRelationship());
-				pstmt.setString(i++, vo.getBirthday());
-				pstmt.setString(i++, vo.getComments());
-				pstmt.setString(i++, vo.getRegistedate());
-				pstmt.setInt   (i--, vo.getId());
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getAddress());
+				pstmt.setString(3, vo.getTelephone());
+				pstmt.setString(4, vo.getGender());
+				pstmt.setString(5, vo.getRelationship());
+				pstmt.setString(6, vo.getBirthday());
+				pstmt.setString(7, vo.getComments());
+				pstmt.setInt   (8, vo.getId());
 				result = pstmt.executeUpdate();	
 			
 				if(result == 1) {
-					System.out.println();
+					System.out.println("데이터가 수정되었습니다.");
+					
 				}			
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				DBConnectionMgr.freeConnection( rs, pstmt, con );
+				DBConnectionMgr.freeConnection(pstmt, con);
 			}
 			return vo;
 		}
-}
+
