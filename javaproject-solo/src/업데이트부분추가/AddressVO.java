@@ -73,3 +73,4 @@ public class AddressVO implements Serializable {
 		this.result = result;
 	}
 }
+//

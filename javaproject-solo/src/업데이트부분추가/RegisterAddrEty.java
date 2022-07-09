@@ -62,3 +62,4 @@ public class RegisterAddrEty {
 		return vo;
 	}
 }
+//
