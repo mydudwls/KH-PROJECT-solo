@@ -36,6 +36,7 @@ public class Voclass implements Serializable {
     
     private Voclass[] Voclass; 
     // 객체 배열화 클래스를 배열로 만드는 구문!
+    // 이거는 도저히 모르곘다~~~
     
     public Voclass() {}
     
