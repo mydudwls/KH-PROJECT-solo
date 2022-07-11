@@ -37,6 +37,8 @@ public class Voclass implements Serializable {
     private int result;
     // 지금은 선언만 시켜놓은 상태  
     
+    public Voclass() {}
+    
     private Voclass[] VoclassS; 
     // 객체 배열화 클래스를 배열로 만드는 구문!
     // 이른 인스턴스화 즉 빈 깡통을 생성한다.
@@ -73,6 +75,7 @@ public class Voclass implements Serializable {
     public String    getBirthday    (){return this.birthday;} 
     public String    getComments    (){return this.comments;}	
     public String    getRegistedate (){return this.registedate;}		
+    public String    getCommand     (){return this.command;}
     public int       getId          (){return this.id;} 
     public Voclass []getVoclassS    (){return this.VoclassS;}
     
